@@ -1,0 +1,41 @@
+
+<!--
+Git common targets
+
+By default it uses git from command line.
+
+-->
+<project name="common-git">
+
+  <!-- Set the current file path -->
+  <dirname property="common-git._basedir" file="${ant.file.common-git}" />
+
+  <available file=".git" type="dir" property="git.present"/>
+
+
+
+  <!-- **************************************************** -->
+  <!-- Sets property "repository.version" to head git revision -->
+  <!-- **************************************************** -->
+  <target name="common-git-revision" if="git.present">
+
+    <exec executable="git" outputproperty="git.revision" failifexecutionfails="false" errorproperty="">
+      <arg value="describe" />
+      <arg value="--tags" />
+      <arg value="--always" />
+      <arg value="HEAD" />
+    </exec>
+
+    <condition property="repository.version" value="${git.revision}" else="unknown">
+      <and>
+        <isset property="git.revision" />
+        <length string="${git.revision}" trim="yes" length="0" when="greater" />
+      </and>
+    </condition>
+
+    <property name="git-revision" value="${git.revision}" />
+    <echo>Git revision found: ${git.revision}</echo>
+    <echo>Property "repository.version" defined</echo>
+  </target>
+
+</project>
