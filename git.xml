@@ -37,4 +37,35 @@ By default it uses git from command line.
     <echo>Property "repository.version" defined</echo>
   </target>
 
+
+
+  <!-- **************************************************** -->
+  <!-- Sets properties based on git info -->
+  <!-- **************************************************** -->
+  <target name="common-git-info" if="git.present">
+
+    <exec executable="git" outputproperty="git.revision">
+      <arg line="rev-list --count HEAD" />
+    </exec>
+
+    <exec executable="git" outputproperty="git.commit">
+      <arg line="rev-parse HEAD" />
+    </exec>
+
+    <exec executable="git" outputproperty="git.commit_short">
+      <arg line="rev-parse --short HEAD" />
+    </exec>
+
+    <exec executable="git" outputproperty="git.tag">
+      <arg line="tag" />
+    </exec>
+
+    <echo>Git info</echo>
+    <echo>git.revision: ${git.revision}</echo>
+    <echo>git.commit: ${git.commit}</echo>
+    <echo>git.commit_short: ${git.commit_short}</echo>
+    <echo>git.tag: ${git.tag}</echo>
+
+  </target>
+
 </project>
