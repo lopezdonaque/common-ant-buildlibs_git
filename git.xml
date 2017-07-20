@@ -59,7 +59,7 @@ By default it uses git from command line.
     </exec>
 
     <exec executable="git" outputproperty="git.branch">
-      <arg line="rev-parse --abbrev-ref HEAD" />
+      <arg line="name-rev --name-only ${git.commit_short}" />
     </exec>
 
     <condition property="git.is_master">
