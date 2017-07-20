@@ -64,12 +64,17 @@ By default it uses git from command line.
       <arg line="rev-parse --abbrev-ref HEAD" />
     </exec>
 
+    <condition property="git.is_master">
+      <equals arg1="${git.branch}" arg2="master" />
+    </condition>
+
     <echo>Git info</echo>
     <echo>git.revision: ${git.revision}</echo>
     <echo>git.commit: ${git.commit}</echo>
     <echo>git.commit_short: ${git.commit_short}</echo>
     <echo>git.tag: ${git.tag}</echo>
     <echo>git.branch: ${git.branch}</echo>
+    <echo>git.is_master: ${git.is_master}</echo>
 
   </target>
 
